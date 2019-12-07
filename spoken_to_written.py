@@ -4,7 +4,7 @@ import re
 from word2number import w2n
 
 
-class spoken_to_written:
+class stw:
 
     def __init__(self, rules_file=None):
 
@@ -17,7 +17,10 @@ class spoken_to_written:
             self.rules = json.load(rules)
 
     def parse(self, text):
-        pass
+        text = self.replace_word_numbers(text)
+        text = self.parse_on_regex_rules(text)
+
+        return text
 
     def parse_on_regex_rules(self, text):
         for rule in self.rules['rules']:
@@ -28,12 +31,14 @@ class spoken_to_written:
         return text
 
     def replace_word_numbers(self, text):
-        num_reg = ('(one|two|three|four|five|six|seven|eight|nine|ten|'
-                   'eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|'
-                   'twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|'
-                   'hundred|thousand|million|billion|trillion)')
+        num_tokens = ('(one|two|three|four|five|six|seven|eight|nine|ten|'
+                      'eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|'
+                      'twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|'
+                      'hundred|thousand|million|billion|trillion)')
 
-        num_reg = '(' + num_reg + '(' + ' ' + num_reg + ')' + '*' + ')'
+        num_reg = '( )' + '(' + num_tokens + \
+            '(' + ' ' + num_tokens + ')' + '*' + ')'
+
         return re.sub(num_reg, word_to_number, text)
 
 

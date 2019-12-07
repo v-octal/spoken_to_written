@@ -7,7 +7,7 @@
     },
     {
       "search": "(Triple)( *)([A-Za-z])([ \t\r\n\f])",
-      "replace": "\\3\\3\\3",
+      "replace": "\\3\\3\\3\\4",
       "type": "regex"
     },
     {
