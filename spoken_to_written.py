@@ -47,7 +47,7 @@ def word_to_number(match):
     try:
         num = w2n.word_to_num(word)
         if type(num) is int:
-            return str(num)
+            return ' ' + str(num)
         else:
             return word
     except:

@@ -11,7 +11,7 @@
       "type": "regex"
     },
     {
-      "search": "([0-9]+) (dollars)",
+      "search": "([0-9]+) (dollars|dollar)",
       "replace": "$\\1",
       "type": "regex"
     }
