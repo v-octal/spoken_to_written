@@ -6,8 +6,13 @@
       "type": "regex"
     },
     {
-      "search": "(Triple)( *)([^ ]+)",
+      "search": "(Triple)( *)([A-Za-z])([ \t\r\n\f])",
       "replace": "\\3\\3\\3",
+      "type": "regex"
+    },
+    {
+      "search": "([0-9]+) (dollars)",
+      "replace": "$\\1",
       "type": "regex"
     }
   ]
