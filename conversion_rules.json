@@ -1,0 +1,14 @@
+{
+  "rules": [
+    {
+      "search": "([A-Z])([ ]+)([A-Z])",
+      "replace": "\\1\\3",
+      "type": "regex"
+    },
+    {
+      "search": "(Triple)( *)([^ ]+)",
+      "replace": "\\3\\3\\3",
+      "type": "regex"
+    }
+  ]
+}
