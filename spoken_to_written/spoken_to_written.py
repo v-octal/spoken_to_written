@@ -30,7 +30,7 @@ class parsing_component:
         raise NotImplementedError
 
 
-class parse_numbers(logic_component):
+class logic_numbers(logic_component):
 
     def set_rules(self, rules_loc):
         num_tokens = ('(one|two|three|four|five|six|seven|eight|nine|ten|'
@@ -45,7 +45,7 @@ class parse_numbers(logic_component):
         return re.sub(self.num_reg, word_to_number, text)
 
 
-class parse_common_regex(logic_component):
+class logic_common_regex(logic_component):
 
     def set_rules(self, rules_loc):
 
