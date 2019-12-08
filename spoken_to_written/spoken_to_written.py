@@ -4,6 +4,32 @@ import re
 from word2number import w2n
 
 
+class logic_component():
+
+    def __init__(self, rules_loc=None):
+        self.rules = None
+
+    def set_rules(self, rules_loc):
+        raise NotImplementedError(
+            'Implement this method. This method sets rules for the logic')
+
+    def logic(self):
+        raise NotImplementedError(
+            'Implement the logic of this component in this method')
+
+
+class parsing_component():
+
+    def __init__(self):
+        raise NotImplementedError
+
+    def parse_rule(self):
+        raise NotImplementedError
+
+    def parse_logic(self):
+        raise NotImplementedError
+
+
 class stw:
 
     def __init__(self, rules_file=None):
