@@ -4,21 +4,21 @@ import re
 from word2number import w2n
 
 
-class logic_component():
+class logic_component:
 
     def __init__(self, rules_loc=None):
-        self.rules = None
+        self.set_rules(rules_loc)
 
     def set_rules(self, rules_loc):
         raise NotImplementedError(
             'Implement this method. This method sets rules for the logic')
 
-    def logic(self):
+    def logic(self, text):
         raise NotImplementedError(
             'Implement the logic of this component in this method')
 
 
-class parsing_component():
+class parsing_component:
 
     def __init__(self):
         raise NotImplementedError
@@ -28,6 +28,42 @@ class parsing_component():
 
     def parse_logic(self):
         raise NotImplementedError
+
+
+class parse_numbers(logic_component):
+
+    def set_rules(self, rules_loc):
+        num_tokens = ('(one|two|three|four|five|six|seven|eight|nine|ten|'
+                      'eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|'
+                      'twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|'
+                      'hundred|thousand|million|billion|trillion)')
+
+        self.num_reg = '( )' + '(' + num_tokens + \
+            '(' + ' ' + num_tokens + ')' + '*' + ')'
+
+    def logic(self, text):
+        return re.sub(self.num_reg, word_to_number, text)
+
+
+class parse_common_regex(logic_component):
+
+    def set_rules(self, rules_loc):
+
+        if rules_loc is None:
+            rules_loc = os.path.dirname(os.path.realpath(
+                __file__)) + '/conversion_rules.json'
+
+        self.rules = None
+        with open(rules_loc, "r") as rules:
+            self.rules = json.load(rules)
+
+    def logic(self, text):
+        for rule in self.rules['rules']:
+            if rule['type'] == 'regex':
+                text = re.sub(rule['search'],
+                              rule['replace'], text)
+
+        return text
 
 
 class stw:
